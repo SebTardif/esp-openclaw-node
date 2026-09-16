@@ -1,3 +1,16 @@
+# File command host tests
+
+`python3 components/esp-openclaw-room-node/tests/run_file_host_tests.py`
+compiles the complete production file-command source with real cJSON and
+mbedTLS from the configured component-test app and ESP-IDF installation.
+Use `--cjson-dir` and `--mbedtls-dir` to select existing dependency sources.
+The Node registration boundary is synthetic; the registered `file.write`
+handler, JSON parsing, base64 decoding, SHA-256, and host filesystem are real.
+ASan/UBSan and patterned stack initialization make the old root-loss walk
+fail deterministically. Cases cover root loss, preflight without mutation,
+nested parent creation, content/hash preservation, and symlink rejection.
+These tests do not exercise ESP-IDF VFS or physical SD-card removal.
+
 # Talk lifetime source proofs
 
 ## Console header framing

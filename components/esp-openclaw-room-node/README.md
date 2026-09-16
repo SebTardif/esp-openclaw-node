@@ -35,6 +35,12 @@ Storage is explicitly optional. A board that supplies a canonical file root
 gets the bounded file-transfer commands and storage metrics; boards such as the
 Waveshare adapter advertise no file surface.
 
+`file.write` with `createParents: true` creates missing parent directories,
+including the configured root if it disappeared after registration. Adding
+`preflightOnly: true` validates a proposed write beneath an existing safe
+ancestor without creating directories or files. A missing root or a disallowed
+symlink still fails preflight.
+
 `room_aec_src.c` carries the pinned `esp_capture` AEC/wake-event closure needed
 by the current media stack: WakeNet only advances while its AFE fetch path is
 drained. It lives here once, alongside the shared capture orchestration, until
