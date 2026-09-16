@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Keep file parent creation inside the path when the storage root disappears, and allow side-effect-free write preflight beneath existing roots. Thanks @SebTardif for reporting the parent-walk overflow. (#31)
 - Cancel room Talk on authoritative operator loss or exact Gateway session closure, and drain prepared-call callbacks before WebRTC teardown without changing public configuration layouts.
 - Boost Tab5 and Waveshare playback with bounded PCM gain and tone compensation, preserve positional audio-port initializers, and bind room Talk calls to the configured agent. (#33)
 - Update ESP-IDF component dependencies and the CI checkout action while preserving the vendored WebRTC stack and Tab5 firmware compatibility pins.

@@ -398,8 +398,8 @@ static bool valid_sha256(const char *value)
 
 static bool make_parents_safely(char *parent)
 {
-    size_t root_len = strlen(configured_root);
-    for (char *p = parent + root_len + 1; *p != '\0'; ++p) {
+    char *p = parent + strlen(configured_root);
+    for (; *p != '\0'; ++p) {
         if (*p != '/') continue;
         *p = '\0';
         struct stat st;
@@ -464,7 +464,7 @@ static esp_err_t resolve_write_path(
         strlcpy(ancestor, parent, sizeof(ancestor));
         while (realpath(ancestor, resolved_parent) == NULL) {
             char *cut = strrchr(ancestor, '/');
-            if (cut == NULL || (size_t)(cut - ancestor) <= strlen(configured_root)) {
+            if (cut == NULL || (size_t)(cut - ancestor) < strlen(configured_root)) {
                 return fail(error, "PARENT_NOT_FOUND", "no safe parent ancestor exists", ESP_ERR_NOT_FOUND);
             }
             *cut = '\0';
